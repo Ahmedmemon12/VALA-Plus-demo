@@ -13,7 +13,7 @@ export function Header() {
       <div className="flex h-16 items-center w-full gap-2 px-4">
         <div className="flex items-center space-x-4">
           <span className="text-md font-bold text-white">
-            <a href="/">VALA Plus</a>
+            <a href="/">VP</a>
           </span>
         </div>
         <div className="ml-auto flex items-center space-x-4">

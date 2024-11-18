@@ -16,6 +16,7 @@ import {
   Users,
   PanelRightClose,
   PanelRightOpen,
+  CircleHelp,
 } from "lucide-react";
 
 const recentChats = [
@@ -48,17 +49,13 @@ export function Sidebar() {
           !isExpanded && "w-0"
         )}
       >
-        <ScrollArea className="h-full py-6">
+        <ScrollArea className="h-full pb-6">
           <div className="h-full flex flex-col justify-between">
             <div className="space-y-4 py-4 h-[75vh]">
               <div className="px-3 py-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="mb-4 h-12 w-12 rounded-full bg-zinc-900 hover:bg-zinc-900/90 mx-auto flex"
-                >
-                  <Mic className="h-6 w-6 text-white" />
-                </Button>
+                <div className="flex items-center justify-center py-8">
+                  <h1 className="text-lg font-black">Vala Plus</h1>
+                </div>
                 <div className="space-y-1">
                   <Link href="/">
                     <Button
@@ -147,7 +144,8 @@ export function Sidebar() {
                 </>
               )}
             </div>
-            <div className="flex justify-end pr-4">
+            <div className="flex justify-between px-4 items-center">
+              <Link href={"/feedback"} className="bg-zinc-900 text-white rounded-full p-2" ><CircleHelp /></Link>
               <span onClick={() => setIsExpanded(!isExpanded)}>
                 <PanelRightOpen />
               </span>
