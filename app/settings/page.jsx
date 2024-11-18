@@ -10,7 +10,7 @@ const SettingsPage = () => {
         { name: "Change Language", link: "/settings/language", icon: <Globe size={20} /> },
         { name: "Setting 1", link: "/settings/setting1", icon: <Settings size={20} /> },
         { name: "Setting 2", link: "/settings/setting2", icon: <Sliders size={20} /> },
-        { name: "Setting 3", link: "/settings/setting3", icon: <Sliders size={20} /> },
+        { name: "Feedback", link: "/feedback", icon: <Sliders size={20} /> },
     ];
 
     return (

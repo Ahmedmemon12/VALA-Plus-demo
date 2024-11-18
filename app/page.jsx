@@ -43,7 +43,7 @@ export default function StaffDashboard() {
 
   const quickActions = [
     { label: 'Rooms', icon: School, url: "/rooms" },
-    { label: 'Log Incident', icon: AlertTriangle, url:"/incident/report" },
+    { label: 'Report Incident', icon: AlertTriangle, url:"/incident/report" },
     { label: 'Chats', icon: MessageSquare, url: "/chat/all" }
   ];
 
