@@ -65,7 +65,7 @@ const NQFChecklist = () => {
             },
         ],
     };
-    
+
     return (
         <div className="container mx-auto p-6 bg-gray-50 rounded-md shadow-md">
             <Card className="p-3">
@@ -81,8 +81,8 @@ const NQFChecklist = () => {
                                 <button
                                     onClick={() => toggleCompleted(item.id)}
                                     className={`px-4 py-2 rounded ${item.completed
-                                            ? "bg-green-500 text-white"
-                                            : "bg-gray-200 text-gray-700"
+                                        ? "bg-zinc-500 text-white"
+                                        : "bg-zinc-900 text-white"
                                         }`}
                                 >
                                     {item.completed ? "Completed" : "Mark as Done"}
@@ -97,7 +97,7 @@ const NQFChecklist = () => {
             <Card className="p-3">
                 <div className="overflow-x-scroll w-full">
                     <h2 className="text-xl font-semibold mb-4">Progress Tracker</h2>
-                    <Doughnut data={chartData}/>
+                    <Doughnut data={chartData} />
                 </div>
             </Card>
         </div>
