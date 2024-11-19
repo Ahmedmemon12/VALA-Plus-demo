@@ -93,6 +93,18 @@ export function Sidebar() {
                       {isExpanded && "Chats"}
                     </Button>
                   </Link>
+                  <Link href="/quality-compliance">
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start gap-2 text-black hover:text-white",
+                        pathname === "/settings" && "bg-zinc-900 text-white"
+                      )}
+                    >
+                      <Settings className="h-4 w-4" />
+                      {isExpanded && "Quality compliance management"}
+                    </Button>
+                  </Link>
                   <Link href="/settings">
                     <Button
                       variant="ghost"
