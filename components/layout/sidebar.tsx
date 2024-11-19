@@ -116,7 +116,7 @@ export function Sidebar() {
                       )}
                     >
                       <NotepadText className="h-4 w-4" />
-                      {isExpanded && "Compliance management"}
+                      {isExpanded && "Compliance Management"}
                     </Button>
                   </Link>
                   <Link href="/settings">
