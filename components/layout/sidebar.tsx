@@ -17,12 +17,13 @@ import {
   PanelRightClose,
   PanelRightOpen,
   CircleHelp,
+  CircleAlert,
 } from "lucide-react";
 
 const recentChats = [
-  { name: "John's mother", id: "1" },
-  { name: "Adam's father", id: "2" },
-  { name: "Administrator", id: "3" },
+  { name: "John's mother", id: "1", "url":"/chat/new" },
+  { name: "Adam's father", id: "2", "url":"/chat/new" },
+  { name: "Administrator", id: "3", "url":"/chat/new" },
 ];
 
 export function Sidebar() {
@@ -93,6 +94,18 @@ export function Sidebar() {
                       {isExpanded && "Chats"}
                     </Button>
                   </Link>
+                  <Link href="/incident">
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start gap-2 text-black hover:text-white",
+                        pathname === "/settings" && "bg-zinc-900 text-white"
+                      )}
+                    >
+                      <CircleAlert className="h-4 w-4" />
+                      {isExpanded && "Log incidents"}
+                    </Button>
+                  </Link>
                   <Link href="/quality-compliance">
                     <Button
                       variant="ghost"
@@ -102,7 +115,7 @@ export function Sidebar() {
                       )}
                     >
                       <Settings className="h-4 w-4" />
-                      {isExpanded && "compliance management"}
+                      {isExpanded && "Compliance management"}
                     </Button>
                   </Link>
                   <Link href="/settings">
@@ -127,7 +140,7 @@ export function Sidebar() {
                     </h2>
                     <div className="space-y-1">
                       {recentChats.map((chat) => (
-                        <Link key={chat.id} href={`/chat/${chat.id}`}>
+                        <Link key={chat.id} href={`/chat/new`}>
                           <Button
                             variant="ghost"
                             className="w-full justify-start"

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from 'next/link'
 import React from 'react'
 
 export default function page() {
@@ -22,12 +23,15 @@ export default function page() {
     ]
     return (
         <div className="mt-4 mb-20 p-5">
-            <div className="border rounded-md px-3 py-2 mb-4">
-                <input
-                    type="text"
-                    placeholder="Search incidents"
-                    className="bg-transparent w-full focus:outline-none"
-                />
+            <div className='flex w-full gap-2 items-center mb-4'>
+                <div className="border rounded-md px-3 w-[80%] py-2 flex gap-2">
+                    <input
+                        type="text"
+                        placeholder="Search incidents"
+                        className="bg-transparent w-full focus:outline-none"
+                    />
+                </div>
+                <Link href={"/incident/report"}><button className='bg-zinc-900 p-2 rounded-sm text-white px-5'>Report</button></Link>
             </div>
             {incidents.map((incident, index) => (
                 <div
