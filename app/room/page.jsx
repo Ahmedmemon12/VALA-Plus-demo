@@ -82,6 +82,7 @@ const AttendanceRecordsScreen = () => {
               </Link>
             </div>
           ))}
+          <Link href={"/room/attendance"}><button className='w-full bg-zinc-900 rounded-md text-white p-2'>Log attendance</button></Link>
         </CardContent>
       </Card>
 

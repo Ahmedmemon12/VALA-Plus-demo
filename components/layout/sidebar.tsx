@@ -102,7 +102,7 @@ export function Sidebar() {
                       )}
                     >
                       <Settings className="h-4 w-4" />
-                      {isExpanded && "Quality compliance management"}
+                      {isExpanded && "compliance management"}
                     </Button>
                   </Link>
                   <Link href="/settings">
