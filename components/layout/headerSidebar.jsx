@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,38 +14,60 @@ import {
   MessageSquare,
   Settings,
   Mic,
-  Users,
-  PanelRightClose,
-  PanelRightOpen,
+  Menu,
+  X,
   CircleHelp,
   CircleAlert,
   NotepadText,
+  Search,
 } from "lucide-react";
 
 const recentChats = [
-  { name: "John's mother", id: "1", "url":"/chat/new" },
-  { name: "Adam's father", id: "2", "url":"/chat/new" },
-  { name: "Administrator", id: "3", "url":"/chat/new" },
+  { name: "John's mother", id: "1", url: "/chat/new" },
+  { name: "Adam's father", id: "2", url: "/chat/new" },
+  { name: "Administrator", id: "3", url: "/chat/new" },
 ];
 
-export function Sidebar() {
-  const pathname = usePathname();
+export function HeaderSidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const pathname = usePathname();
+
+  const toggleSidebar = () => setIsExpanded((prev) => !prev);
 
   return (
-    <>
-      {!isExpanded ? (
-        <div className="fixed h-full flex items-end pb-32 w-0">
-          <span
-            className="h-10 aspect-square rounded-lg bg-zinc-900 text-white flex items-center justify-center opacity-60 m-3"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            <PanelRightClose />
-          </span>
+    <div>
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-zinc-900 shadow-sm">
+        <div className="flex h-16 items-center w-full gap-2 px-4">
+          <div className="flex items-center space-x-4">
+            <span className="text-md font-bold text-white">
+              <a href="#" onClick={toggleSidebar}>
+                {!isExpanded ? <Menu /> : <X />}
+              </a>
+            </span>
+          </div>
+          <div className="ml-auto flex items-center space-x-4">
+            <div className="relative">
+              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search..."
+                className="pl-8 w-[60vw] bg-white/90"
+              />
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 rounded-full bg-white/90 hover:bg-white hover:text-black"
+              aria-label="Toggle voice input"
+            >
+              <Mic className="h-4 w-4" />
+              <span className="sr-only">Toggle voice input</span>
+            </Button>
+          </div>
         </div>
-      ) : (
-        <></>
-      )}
+      </header>
+
+      {/* Sidebar */}
       <div
         className={cn(
           "fixed left-0 top-16 z-40 h-[calc(100vh-4rem)] w-64 border-r bg-[#F0EFEF] transition-all duration-300 pb-16",
@@ -141,7 +164,7 @@ export function Sidebar() {
                     </h2>
                     <div className="space-y-1">
                       {recentChats.map((chat) => (
-                        <Link key={chat.id} href={`/chat/new`}>
+                        <Link key={chat.id} href={chat.url}>
                           <Button
                             variant="ghost"
                             className="w-full justify-start"
@@ -171,14 +194,14 @@ export function Sidebar() {
               )}
             </div>
             <div className="flex justify-between px-4 items-center">
-              <Link href={"/feedback"} className="bg-zinc-900 text-white rounded-full p-2" ><CircleHelp /></Link>
-              <span onClick={() => setIsExpanded(!isExpanded)}>
-                <PanelRightOpen />
-              </span>
+              <Link href={"/feedback"} className="bg-zinc-900 text-white rounded-full p-2">
+                <CircleHelp />
+              </Link>
+              <span></span>
             </div>
           </div>
         </ScrollArea>
       </div>
-    </>
+    </div>
   );
 }

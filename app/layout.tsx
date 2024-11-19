@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { Header } from "@/components/layout/header";
-import { Sidebar } from "@/components/layout/sidebar";
+// import { Header } from "@/components/layout/header";
+// import { Sidebar } from "@/components/layout/sidebar";
+import {HeaderSidebar} from "@/components/layout/headerSidebar"
 import { Footer } from "@/components/layout/footer";
 import { VoiceModal } from "@/components/layout/voiceModal";
 
@@ -29,9 +30,10 @@ export default function RootLayout({
           enableSystem={false}
         >
           <div className="min-h-screen bg-white">
-            <Header />
+            {/* <Header /> */}
+            <HeaderSidebar />
             <div className="flex">
-              <Sidebar />
+              {/* <Sidebar /> */}
               <VoiceModal />
               <main className="flex-1 pb-16">{children}</main>
             </div>
