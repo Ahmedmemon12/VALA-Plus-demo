@@ -18,6 +18,7 @@ import {
   PanelRightOpen,
   CircleHelp,
   CircleAlert,
+  NotepadText,
 } from "lucide-react";
 
 const recentChats = [
@@ -99,7 +100,7 @@ export function Sidebar() {
                       variant="ghost"
                       className={cn(
                         "w-full justify-start gap-2 text-black hover:text-white",
-                        pathname === "/settings" && "bg-zinc-900 text-white"
+                        pathname === "/incident" && "bg-zinc-900 text-white"
                       )}
                     >
                       <CircleAlert className="h-4 w-4" />
@@ -111,10 +112,10 @@ export function Sidebar() {
                       variant="ghost"
                       className={cn(
                         "w-full justify-start gap-2 text-black hover:text-white",
-                        pathname === "/settings" && "bg-zinc-900 text-white"
+                        pathname === "/quality-compliance" && "bg-zinc-900 text-white"
                       )}
                     >
-                      <Settings className="h-4 w-4" />
+                      <NotepadText className="h-4 w-4" />
                       {isExpanded && "Compliance management"}
                     </Button>
                   </Link>
