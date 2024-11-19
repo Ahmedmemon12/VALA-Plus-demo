@@ -21,6 +21,7 @@ import {
   NotepadText,
   Search,
 } from "lucide-react";
+import { useChatEnabled } from "@/hooks/useChatEnabled";
 
 const recentChats = [
   { name: "John's mother", id: "1", url: "/chat/new" },
@@ -29,6 +30,7 @@ const recentChats = [
 ];
 
 export function HeaderSidebar() {
+  const { toggleChat } = useChatEnabled();
   const [isExpanded, setIsExpanded] = useState(false);
   const pathname = usePathname();
 
@@ -59,6 +61,7 @@ export function HeaderSidebar() {
               size="icon"
               className="h-9 w-9 rounded-full bg-white/90 hover:bg-white hover:text-black"
               aria-label="Toggle voice input"
+              onClick={toggleChat}
             >
               <Mic className="h-4 w-4" />
               <span className="sr-only">Toggle voice input</span>
