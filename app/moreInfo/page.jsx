@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, HelpCircle, Home, FileText, HeadphonesIcon, Save } from 'lucide-react';
+import Link from 'next/link';
 
 const StaffProfileForm = () => {
     const [sections, setSections] = useState({
@@ -163,9 +164,11 @@ const StaffProfileForm = () => {
                     </button>
                 </Section>
 
-                <button className="w-full bg-zinc-900 text-white p-4 rounded-md mt-6 mb-4">
-                    Submit Complete Profile
-                </button>
+                <Link href={"/"}>
+                    <button className="w-full bg-zinc-900 text-white p-4 rounded-md mt-6 mb-4">
+                        Submit Complete Profile
+                    </button>
+                </Link>
             </main>
 
             {/* Fixed Footer Navigation */}

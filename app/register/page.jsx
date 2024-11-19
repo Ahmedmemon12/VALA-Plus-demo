@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -140,12 +141,14 @@ const StaffRegistration = () => {
             </p>
           </div>
 
-          <Button 
-            className="w-full bg-zinc-900 text-white"
-          >
-            Create Account
-          </Button>
+          <Link href={"/moreInfo"}>
+            <Button
+              className="w-full bg-zinc-900 text-white"
+            >
+              Create Account
+            </Button>
 
+          </Link>
           <div className="text-center text-sm">
             <span className="text-[#6C7A89]">Already have an account? </span>
             <a href="/login" className="text-zinc-900 hover:underline">Sign in</a>
