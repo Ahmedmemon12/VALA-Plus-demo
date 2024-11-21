@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Mic } from 'lucide-react';
+import { Mic, MoveRight } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 
@@ -82,7 +82,7 @@ const AttendanceRecordsScreen = () => {
               </Link>
             </div>
           ))}
-          <Link href={"/room/attendance"}><button className='w-full bg-zinc-900 rounded-md text-white p-2'>Log attendance</button></Link>
+          <Link href={"/room/children"}><button className='w-full rounded-md flex items-center justify-start gap-3 p-2 bg-zinc-900 text-white'>View all <MoveRight /></button></Link>
         </CardContent>
       </Card>
 
