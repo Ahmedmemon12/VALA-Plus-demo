@@ -82,21 +82,13 @@ const AttendanceRecordsScreen = () => {
               </Link>
             </div>
           ))}
-          <Link href={"/room/children"}><button className='w-full rounded-md flex items-center justify-start gap-3 p-2 bg-zinc-900 text-white'>View all <MoveRight /></button></Link>
+          <Link href={"/room/attendance"}><button className='w-full rounded-md flex items-center justify-start gap-3 pt-4 hover:underline'>View all <MoveRight /></button></Link>
         </CardContent>
       </Card>
 
-      {/* Voice Log */}
-      <div className="mt-6 flex justify-center">
-        <button
-          className={`px-4 py-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white flex items-center text-xs ${isVoiceLogMode ? 'bg-[#FAD4C0] text-[#6C7A89]' : ''}`}
-          onClick={handleVoiceLog}
-        >
-          <Mic className="mr-2" size={20} />
-          {isVoiceLogMode ? 'Deactivate Voice Logging' : 'Activate Voice Logging'}
-        </button>
+      <div className='flex items-center justify-center'>
+        <Link href={"/room/children"}><button className='bg-zinc-900 text-white p-4 rounded-md'>View children activities</button></Link>
       </div>
-
       {/* View Logged Data */}
       <div className="mt-6">
         <Card>

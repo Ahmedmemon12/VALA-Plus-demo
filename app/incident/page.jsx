@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 
 export default function Page() {
     const router = useRouter();
@@ -58,15 +59,12 @@ export default function Page() {
       ];
     const handleIncidentClick = (incident) => {
         const { id, date, type, details, name, step } = incident;
-        router.push(
-            `/incident-detail?id=${id}&date=${date}&type=${type}&details=${encodeURIComponent(
-                details
-            )}&name=${encodeURIComponent(name)}&step=${encodeURIComponent(step)}`
-        );
+        router.push(`/incident/details`);
     };
 
     return (
         <div className="mt-4 mb-20 p-5">
+          <div className="flex justify-center mb-3"><input type="text" className="border-black border w-[80%] p-2 rounded-l-lg" placeholder="Search incidents"/><button className="w-16 rounded-r-lg flex items-center justify-center bg-zinc-900 text-white"><Search /></button></div>
             {incidents.map((incident) => (
                 <div
                     key={incident.id}

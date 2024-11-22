@@ -1,21 +1,22 @@
 "use client";
 import { useState } from "react";
-import { SleepCheckManager } from "@/components/blocks/SleepCheckForm";
-import { Card } from "@/components/ui/card";
 import { FoodTrackingComponent } from "@/components/blocks/foodTracker";
 import { SunscreenApplicationForm } from "@/components/blocks/SunscreenApplicationForm";
 import { NappyChangeForm } from "@/components/blocks/NappyChangeForm";
+import { SleepCheckManager } from "@/components/blocks/SleepCheckForm";
+import { AttendanceTrackingComponent } from "@/components/blocks/AttendanceTracking"; // Add this import
+import { Card } from "@/components/ui/card";
+import { Baby, Clock, Moon, Sun, UtensilsCrossed } from "lucide-react";
 
 export default function SmBabyPage() {
   const [childData, setChildData] = useState({
     foodData: {},
     nappyData: { status: "", diaperCream: false, quantity: "" },
     sunscreenTime: "",
-    sleepData: { start: "", end: "" }, // Add sleep data state
+    sleepData: { start: "", end: "" },
   });
-  const [tab, setTab] = useState("food");
+  const [tab, setTab] = useState("attendance");
 
-  // Handle updates to food data
   const handleFoodChange = (meal, field, value) => {
     setChildData((prevData) => ({
       ...prevData,
@@ -29,7 +30,6 @@ export default function SmBabyPage() {
     }));
   };
 
-  // Handle updates to nappy data
   const handleNappyChange = (field, value) => {
     setChildData((prevData) => ({
       ...prevData,
@@ -40,7 +40,6 @@ export default function SmBabyPage() {
     }));
   };
 
-  // Handle updates to sunscreen application time
   const handleSunscreenChange = (value) => {
     setChildData((prevData) => ({
       ...prevData,
@@ -48,7 +47,6 @@ export default function SmBabyPage() {
     }));
   };
 
-  // Handle updates to sleep data (start and end time)
   const handleSleepChange = (field, value) => {
     setChildData((prevData) => ({
       ...prevData,
@@ -62,35 +60,41 @@ export default function SmBabyPage() {
   return (
     <div className="p-4 flex flex-col gap-3">
       {/* Title Card */}
-      <Card className="p-4 text-white bg-zinc-900">
+      <Card className="p-2 text-lg">
         <h1 className="font-black">{"Emma's Activities"}</h1>
       </Card>
 
       {/* Tab Navigation */}
-      <div className="flex gap-4 border-b-2">
+      <div className="flex gap-4 border-b-2 overflow-x-scroll w-[90vw]">
         <button
-          className={`p-2 text-xs ${tab === "food" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs flex items-center gap-1 ${tab === "attendance" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          onClick={() => setTab("attendance")}
+        >
+          <Clock /> Attendance
+        </button>
+        <button
+          className={`p-2 text-xs flex items-center gap-1 ${tab === "food" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("food")}
         >
-          Food
+          <UtensilsCrossed /> Food
         </button>
         <button
-          className={`p-2 text-xs ${tab === "sunscreen" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs flex items-center gap-1 ${tab === "sunscreen" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("sunscreen")}
         >
-          Sunscreen
+          <Sun /> Sunscreen
         </button>
         <button
-          className={`p-2 text-xs ${tab === "nappy" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs flex items-center gap-1 ${tab === "nappy" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("nappy")}
         >
-          Nappy Tracker
+          <Baby /> Nappy
         </button>
         <button
-          className={`p-2 text-xs ${tab === "sleep" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs flex items-center gap-1 ${tab === "sleep" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("sleep")}
         >
-          Sleep Tracker
+          <Moon /> Sleep
         </button>
       </div>
 
@@ -103,10 +107,10 @@ export default function SmBabyPage() {
               {Object.keys(childData.foodData).length === 0
                 ? "No food information logged yet."
                 : Object.entries(childData.foodData).map(([meal, data], index) => (
-                    <div key={index}>
-                      {meal}: {data.amount || "None"}
-                    </div>
-                  ))}
+                  <div key={index}>
+                    {meal}: {data.amount || "None"}
+                  </div>
+                ))}
             </div>
           </div>
         )}
@@ -120,6 +124,7 @@ export default function SmBabyPage() {
             </div>
           </div>
         )}
+        {tab === "attendance" && <AttendanceTrackingComponent />}
       </Card>
 
       {/* Tab Content */}
