@@ -1,13 +1,19 @@
-export function SunscreenApplicationForm({ sunscreenTime, onTimeChange }) {
+export function SunscreenApplicationForm({ onTimeChange }) {
+    const handleApplySunscreen = () => {
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      console.log(`Sunscreen applied at ${currentTime}`);
+      onTimeChange(currentTime);
+    };
+  
     return (
-        <div className="mb-4">
-            <label className="block">Sunscreen Application Time</label>
-            <input
-                type="time"
-                value={sunscreenTime}
-                onChange={(e) => onTimeChange(e.target.value)}
-                className="border p-2"
-            />
-        </div>
+      <div className="mb-4">
+        <button
+          onClick={handleApplySunscreen}
+          className="bg-zinc-900 text-white px-4 py-2 rounded hover:bg-zinc-700"
+        >
+          Apply Sunscreen
+        </button>
+      </div>
     );
-}
+  }
+  
