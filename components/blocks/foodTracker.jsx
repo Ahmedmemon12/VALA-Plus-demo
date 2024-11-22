@@ -2,7 +2,7 @@ export function FoodTrackingComponent({ foodData, onFoodChange }) {
     return (
       <div>
         <label className="block mb-4 text-lg font-bold">Food Intake</label>
-        {["Morning Tea", "Lunch", "Afternoon Tea"].map((meal, index) => (
+        {["Breakfast", "Lunch", "Dinner"].map((meal, index) => (
           <div key={index} className="mb-4">
             <button
               type="button"

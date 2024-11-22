@@ -5,26 +5,26 @@ import React, { useState } from "react";
 
 const AttendancePage = () => {
     const [children, setChildren] = useState([
-        { 'id': 1, 'name': 'Ava', 'url': 'nb-baby', 'age': '0-1' },
-        { 'id': 2, 'name': 'Liam', 'url': 'sm-baby', 'age': '1-2' },
-        { 'id': 3, 'name': 'Emma', 'url': 'md-baby', 'age': '2-3' },
-        { 'id': 4, 'name': 'Noah', 'url': 'lg-baby', 'age': '3-4' },
-        { 'id': 5, 'name': 'Sophia', 'url': 'xl-baby', 'age': '4-5' },
-        { 'id': 6, 'name': 'Oliver', 'url': 'nb-baby', 'age': '0-1' },
-        { 'id': 7, 'name': 'Isabella', 'url': 'sm-baby', 'age': '1-2' },
-        { 'id': 8, 'name': 'Elijah', 'url': 'md-baby', 'age': '2-3' },
-        { 'id': 9, 'name': 'Charlotte', 'url': 'lg-baby', 'age': '3-4' },
-        { 'id': 10, 'name': 'James', 'url': 'xl-baby', 'age': '4-5' },
-        { 'id': 11, 'name': 'Amelia', 'url': 'nb-baby', 'age': '0-1' },
-        { 'id': 12, 'name': 'William', 'url': 'sm-baby', 'age': '1-2' },
-        { 'id': 13, 'name': 'Mia', 'url': 'md-baby', 'age': '2-3' },
-        { 'id': 14, 'name': 'Lucas', 'url': 'lg-baby', 'age': '3-4' },
-        { 'id': 15, 'name': 'Harper', 'url': 'xl-baby', 'age': '4-5' },
-        { 'id': 16, 'name': 'Ethan', 'url': 'nb-baby', 'age': '0-1' },
-        { 'id': 17, 'name': 'Avery', 'url': 'sm-baby', 'age': '1-2' },
-        { 'id': 18, 'name': 'Mason', 'url': 'md-baby', 'age': '2-3' },
-        { 'id': 19, 'name': 'Ella', 'url': 'lg-baby', 'age': '3-4' },
-        { 'id': 20, 'name': 'Henry', 'url': 'xl-baby', 'age': '4-5' }
+        { 'id': 1, 'name': 'Ava', 'url': 'baby', 'age': '0-1' },
+        { 'id': 2, 'name': 'Liam', 'url': 'baby', 'age': '1-2' },
+        { 'id': 3, 'name': 'Emma', 'url': 'baby', 'age': '2-3' },
+        { 'id': 4, 'name': 'Noah', 'url': 'baby', 'age': '3-4' },
+        { 'id': 5, 'name': 'Sophia', 'url': 'baby', 'age': '4-5' },
+        { 'id': 6, 'name': 'Oliver', 'url': 'baby', 'age': '0-1' },
+        { 'id': 7, 'name': 'Isabella', 'url': 'baby', 'age': '1-2' },
+        { 'id': 8, 'name': 'Elijah', 'url': 'baby', 'age': '2-3' },
+        { 'id': 9, 'name': 'Charlotte', 'url': 'baby', 'age': '3-4' },
+        { 'id': 10, 'name': 'James', 'url': 'baby', 'age': '4-5' },
+        { 'id': 11, 'name': 'Amelia', 'url': 'baby', 'age': '0-1' },
+        { 'id': 12, 'name': 'William', 'url': 'baby', 'age': '1-2' },
+        { 'id': 13, 'name': 'Mia', 'url': 'baby', 'age': '2-3' },
+        { 'id': 14, 'name': 'Lucas', 'url': 'baby', 'age': '3-4' },
+        { 'id': 15, 'name': 'Harper', 'url': 'baby', 'age': '4-5' },
+        { 'id': 16, 'name': 'Ethan', 'url': 'baby', 'age': '0-1' },
+        { 'id': 17, 'name': 'Avery', 'url': 'baby', 'age': '1-2' },
+        { 'id': 18, 'name': 'Mason', 'url': 'baby', 'age': '2-3' },
+        { 'id': 19, 'name': 'Ella', 'url': 'baby', 'age': '3-4' },
+        { 'id': 20, 'name': 'Henry', 'url': 'baby', 'age': '4-5' }
     ]);
 
     return (

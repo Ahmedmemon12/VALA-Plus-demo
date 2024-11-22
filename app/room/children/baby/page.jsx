@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
-import { FoodTrackingComponent } from "../../../../components/blocks/foodTracker";
-import { NappyChangeForm } from "../../../../components/blocks/NappyChangeForm";
-import { SunscreenApplicationForm } from "../../../../components/blocks/SunscreenApplicationForm";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { SleepCheckManager } from "@/components/blocks/SleepCheckForm";
+import { Card } from "@/components/ui/card";
+import { FoodTrackingComponent } from "@/components/blocks/foodTracker";
+import { SunscreenApplicationForm } from "@/components/blocks/SunscreenApplicationForm";
+import { NappyChangeForm } from "@/components/blocks/NappyChangeForm";
 
-export default function NbBabyPage() {
+export default function SmBabyPage() {
   const [childData, setChildData] = useState({
     foodData: {},
     nappyData: { status: "", diaperCream: false, quantity: "" },
     sunscreenTime: "",
+    sleepData: { start: "", end: "" }, // Add sleep data state
   });
   const [tab, setTab] = useState("food");
 
@@ -46,35 +48,53 @@ export default function NbBabyPage() {
     }));
   };
 
+  // Handle updates to sleep data (start and end time)
+  const handleSleepChange = (field, value) => {
+    setChildData((prevData) => ({
+      ...prevData,
+      sleepData: {
+        ...prevData.sleepData,
+        [field]: value,
+      },
+    }));
+  };
+
   return (
     <div className="p-4 flex flex-col gap-3">
+      {/* Title Card */}
       <Card className="p-4 text-white bg-zinc-900">
-        <h1 className="font-black">Emma activities</h1>
+        <h1 className="font-black">{"Emma's Activities"}</h1>
       </Card>
 
       {/* Tab Navigation */}
       <div className="flex gap-4 border-b-2">
         <button
-          className={`p-2 ${tab === "food" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs ${tab === "food" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("food")}
         >
           Food
         </button>
         <button
-          className={`p-2 ${tab === "sunscreen" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs ${tab === "sunscreen" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("sunscreen")}
         >
           Sunscreen
         </button>
         <button
-          className={`p-2 ${tab === "nappy" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          className={`p-2 text-xs ${tab === "nappy" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
           onClick={() => setTab("nappy")}
         >
           Nappy Tracker
         </button>
+        <button
+          className={`p-2 text-xs ${tab === "sleep" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+          onClick={() => setTab("sleep")}
+        >
+          Sleep Tracker
+        </button>
       </div>
 
-      {/* Activity Logs */}
+      {/* Activity Logs Card */}
       <Card className="py-2">
         {tab === "food" && (
           <div className="p-2">
@@ -100,18 +120,6 @@ export default function NbBabyPage() {
             </div>
           </div>
         )}
-        {tab === "nappy" && (
-          <div className="p-2">
-            <span className="font-bold">Nappy Tracker</span>
-            <div>
-              Status: {childData.nappyData.status || "Not logged"}
-              <br />
-              Diaper Cream: {childData.nappyData.diaperCream ? "Yes" : "No"}
-              <br />
-              Quantity: {childData.nappyData.quantity || "Not logged"}
-            </div>
-          </div>
-        )}
       </Card>
 
       {/* Tab Content */}
@@ -134,6 +142,13 @@ export default function NbBabyPage() {
           <NappyChangeForm
             nappyData={childData.nappyData}
             onChange={handleNappyChange}
+          />
+        )}
+
+        {tab === "sleep" && (
+          <SleepCheckManager
+            sleepData={childData.sleepData}
+            onSleepChange={handleSleepChange}
           />
         )}
       </div>
