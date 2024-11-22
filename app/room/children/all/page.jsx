@@ -40,7 +40,7 @@ const AttendancePage = () => {
                         <div className="bg-white shadow-md rounded-lg overflow-hidden">
                             <div className="relative">
                                 <img
-                                    src={`https://via.placeholder.com/200`}
+                                    src={`https://www.shutterstock.com/image-photo/adorable-baby-boy-about-one-260nw-1823848421.jpg`}
                                     alt={child.name}
                                     className="w-full h-48 object-cover"
                                 />
