@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 h-16 border-t bg-white">
+    <div className="fixed bottom-0 left-0 right-0 z-40 h-16 border-t bg-white">
       <div className="mx-auto flex h-full max-w-screen-xl items-center justify-around px-4">
         <Link href="/">
           <Button variant="ghost" size="icon">

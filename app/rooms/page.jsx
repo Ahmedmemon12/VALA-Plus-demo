@@ -31,7 +31,7 @@ const RoomsPage = () => {
   return (
     <div className="bg-white py-8">
       <div className="container mx-auto px-4">
-        <h1 className="text-zinc-900 font-bold text-2xl mb-6">Rooms</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 flex flex-col justify-start px-10"><span className='text-xs text-red-600 text-center'>{"Wattle Tree's"}</span><span>Rooms</span></h1>
         <div className="grid grid-cols-1 gap-4">
           {rooms.map((room) => (
             <RoomCard

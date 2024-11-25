@@ -62,9 +62,9 @@ export default function StaffDashboard() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col pb-16">
-
+      <div className='text-center px-10 py-6 font-extrabold text-xl'>Wattle Tree</div>
       {/* Notifications Section */}
-      <div className="space-y-2 px-4 mt-4">
+      <div className="space-y-2 px-4">
         {notifications.map((notification, index) => {
           const Icon = notification.icon;
           return (

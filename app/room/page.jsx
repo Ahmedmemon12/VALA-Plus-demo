@@ -37,7 +37,7 @@ const AttendanceRecordsScreen = () => {
   return (
     <div className="mt-6 px-4 flex flex-col gap-10">
       <Card>
-        <CardTitle className="text-center p-10">{"Kindergarten"}</CardTitle>
+        <CardTitle className="text-center p-3"><h1 className="text-2xl font-bold text-center mb-6 flex flex-col justify-start px-10"><span className="text-xs text-red-600 text-start">{"Wattle Tree's"}</span><span>Kindergarten Children</span></h1></CardTitle>
       </Card>
 
       {/* Global Room Activities and Tasks */}

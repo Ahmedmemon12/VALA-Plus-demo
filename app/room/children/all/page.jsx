@@ -1,5 +1,6 @@
 "use client";
 
+import { Search } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -29,7 +30,8 @@ const AttendancePage = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 p-4">
-            <h1 className="text-2xl font-bold text-center mb-6">Kindergarten Children</h1>
+            <h1 className="text-2xl font-bold text-center mb-6 flex flex-col justify-start px-10"><span className="text-xs text-red-600 text-start">{"Wattle Tree's"}</span><span>Kindergarten Children</span></h1>
+            <div className="flex justify-center mb-3"><input type="text" className="border-black border w-[80%] p-2 rounded-l-lg" placeholder="Search incidents" /><button className="w-16 rounded-r-lg flex items-center justify-center bg-zinc-900 text-white"><Search /></button></div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
                 {children.map((child) => (
                     <Link

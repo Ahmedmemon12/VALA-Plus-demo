@@ -1,9 +1,10 @@
-"use client"
+// AttendanceTrackingComponent.js
+"use client";
 
 import React, { useState } from "react";
 import { Clock } from "lucide-react"; // Add this if you want an icon
 
-export function AttendanceTrackingComponent() {
+export function AttendanceTrackingComponent({ onAttendanceChange }) {
     const [checkInTime, setCheckInTime] = useState(null);
     const [checkOutTime, setCheckOutTime] = useState(null);
 
@@ -11,12 +12,16 @@ export function AttendanceTrackingComponent() {
     const handleCheckIn = () => {
         const currentTime = new Date().toLocaleTimeString();
         setCheckInTime(currentTime);
+        // Update the parent component with check-in time
+        onAttendanceChange({ checkInTime: currentTime, checkOutTime: null });
     };
 
     // Handle Check-Out
     const handleCheckOut = () => {
         const currentTime = new Date().toLocaleTimeString();
         setCheckOutTime(currentTime);
+        // Update the parent component with check-out time
+        onAttendanceChange({ checkInTime, checkOutTime: currentTime });
     };
 
     return (
