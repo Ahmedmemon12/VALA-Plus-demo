@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FoodTrackingComponent } from "@/components/blocks/foodTracker";
 import { SunscreenApplicationForm } from "@/components/blocks/SunscreenApplicationForm";
@@ -7,7 +7,7 @@ import { NappyChangeForm } from "@/components/blocks/NappyChangeForm";
 import { SleepCheckManager } from "@/components/blocks/SleepCheckForm";
 import { AttendanceTrackingComponent } from "@/components/blocks/AttendanceTracking";
 import { Card } from "@/components/ui/card";
-import { Baby, ChevronDown, ChevronUp, Clock, Moon, Sun, UtensilsCrossed } from "lucide-react";
+import { Activity, ArrowUpDown, Baby, ChevronDown, ChevronUp, Clock, Moon, NotepadText, Sun, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
 
 export default function SmBabyPage() {
@@ -15,7 +15,10 @@ export default function SmBabyPage() {
   const searchParams = useSearchParams();
   const [modalOpen, setModalOpen] = useState(false);
   const [expandedModal, setExpandedModal] = useState(false)
-  const [tab, setTab] = useState('activity')
+  const [selectModal, setSelectModal] = useState(false)
+  const [childName, setChildName] = useState("Emma")
+  // const [tab, setTab] = useState('activity')
+  const [tab, setTab] = useState("activities");
   const children = ['Ava',
     'Liam',
     'Emma',
@@ -43,6 +46,13 @@ export default function SmBabyPage() {
     '2024-11-22',
     '2024-11-21'
   ]
+  // const selectRef = useRef(null);
+  // const handleSwitchChildrenClick = () => {
+  //   if (selectRef.current) {
+  //     selectRef.current.focus(); // Bring focus to the select element
+  //     selectRef.current.click(); // Trigger a click to open it (only works in some browsers)
+  //   }
+  // };
   const [childData, setChildData] = useState({
     attendance: {},
     foodData: {},
@@ -148,146 +158,174 @@ export default function SmBabyPage() {
         return null;
     }
   };
+  const handleSelect = (value) => {
+    setChildName(value)
+    setSelectModal(!selectModal)
+  }
 
   return (
     <div className="p-4 flex flex-col gap-3">
       {/* Title Card */}
       <Card className="p-2 text-lg flex flex-col gap-4">
-        <select
-          id="childSelect"
-          className="w-full px-4 py-2 border rounded-md"
-          onChange={(e) => console.log(e.target.value)} // Handle selection change if necessary
-        >
-          {children.map((child) => (
-            <option key={child} value={child}>
-              {child}
-            </option>
-          ))}
-        </select>
-        <Card className={`bg-blue-100 rounded-lg shadow-md duration-500 h-[60vh] overflow-hidden ${expandedModal ? "" : "h-6"}`}>
-          <Card className="w-full h-6 flex justify-end" onClick={() => setExpandedModal(!expandedModal)}>{expandedModal? <ChevronUp />: <ChevronDown />}</Card>
-          <div className="grid grid-cols-2 border-b">
-            <h2 className={`font-bold text-md mb-4 text-center p-2 rounded-lg ${tab == "activity" ? "bg-zinc-900 text-white" : ""}`} onClick={() => setTab('activity')}>Activity Log</h2>
-            <h2 className={`font-bold text-md mb-4 text-center p-2 rounded-lg ${tab == "previous" ? "bg-zinc-900 text-white" : ""}`} onClick={() => setTab('previous')}>Previous Logs</h2>
-          </div>
-          {tab == "previous"
+        <div className="flex gap-4 items-center justify-between px-2">
+          <h1 className="text-lg font-bold">
+            {`${childName}'s activities`}
+          </h1>
+          <button className="bg-zinc-900 text-white rounded-lg text-xs flex gap-2 items-center p-2" onClick={() => setSelectModal(!selectModal)}><ArrowUpDown />Switch Children</button>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex gap-4 border-b-2 overflow-x-scroll w-[90vw]">
+          <button
+            className={`p-2 text-xs flex items-center gap-1 ${tab === "activities" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+            onClick={() => setTab("activities")}
+          >
+            <Activity /> Activities
+          </button>
+          <button
+            className={`p-2 text-xs flex items-center gap-1 ${tab === "logs" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
+            onClick={() => setTab("logs")}
+          >
+            <NotepadText /> Logs
+          </button>
+        </div>
+        {tab == "logs"
           ?
-          <div className="space-y-4 p-4 overflow-y-scroll">
-            {
-              dates.map((date, ind)=><Card className="bg-gray-300 p-3" key={ind}>{date}</Card>)
-            }
-          </div>
-          :
+          <Card className={`bg-blue-100 rounded-lg shadow-md duration-500`}>
             <div className="space-y-4 p-4">
+              <div className="space-y-1">
+                <h3 className="font-semibold text-lg">Attendance:</h3>
+                {childData.attendance.checkInTime ? (
+                  <p className="text-sm">
+                    <span className="font-semibold">Checked In:</span> {childData.attendance.checkInTime}
+                  </p>
+                ) : (
+                  <p className="text-gray-600">No check-in data logged yet</p>
+                )}
+                {childData.attendance.checkOutTime ? (
+                  <p className="text-sm">
+                    <span className="font-semibold">Checked Out:</span> {childData.attendance.checkOutTime}
+                  </p>
+                ) : (
+                  <p className="text-gray-600">No check-out data logged yet</p>
+                )}
+              </div>
 
-            {/* Attendance Log */}
-            <div className="space-y-1">
-              <h3 className="font-semibold text-lg">Attendance:</h3>
-              {childData.attendance.checkInTime ? (
+              <div className="space-y-1">
+                <h3 className="font-semibold text-lg">Food:</h3>
+                {Object.keys(childData.foodData).length > 0 ? (
+                  <ul className="list-inside pl-4">
+                    {Object.entries(childData.foodData).map(([meal, details]) => (
+                      <li key={meal} className="mb-2">
+                        <span className="font-medium">{meal}:</span>
+                        <div className="pl-4">
+                          {Object.entries(details).map(([field, value]) => (
+                            <p key={field} className="text-sm">
+                              <span className="font-semibold">{field}:</span> {value}
+                            </p>
+                          ))}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-600">No data logged yet</p>
+                )}
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-semibold text-lg">Nappy:</h3>
+                {childData.nappyData.status ? (
+                  <p className="text-sm">
+                    <span className="font-semibold">Status:</span> {childData.nappyData.status},
+                    <span className="font-semibold"> Diaper Cream:</span> {childData.nappyData.diaperCream ? "Yes" : "No"}
+                  </p>
+                ) : (
+                  <p className="text-gray-600">No data logged yet</p>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="font-semibold text-lg">Sunscreen Time:</h3>
                 <p className="text-sm">
-                  <span className="font-semibold">Checked In:</span> {childData.attendance.checkInTime}
+                  {childData.sunscreenTime || "No data logged yet"}
                 </p>
-              ) : (
-                <p className="text-gray-600">No check-in data logged yet</p>
-              )}
-              {childData.attendance.checkOutTime ? (
-                <p className="text-sm">
-                  <span className="font-semibold">Checked Out:</span> {childData.attendance.checkOutTime}
-                </p>
-              ) : (
-                <p className="text-gray-600">No check-out data logged yet</p>
-              )}
+              </div>
+
+
+              <div className="space-y-1">
+                <h3 className="font-semibold text-lg">Sleep:</h3>
+                {childData.sleepData.start || childData.sleepData.end ? (
+                  <p className="text-sm">
+                    <span className="font-semibold">Start:</span> {childData.sleepData.start || "N/A"},
+                    <span className="font-semibold"> End:</span> {childData.sleepData.end || "N/A"}
+                  </p>
+                ) : (
+                  <p className="text-gray-600">No data logged yet</p>
+                )}
+              </div>
+
             </div>
-
-            {/* Food Log */}
-            <div className="space-y-1">
-              <h3 className="font-semibold text-lg">Food:</h3>
-              {Object.keys(childData.foodData).length > 0 ? (
-                <ul className="list-inside pl-4">
-                  {Object.entries(childData.foodData).map(([meal, details]) => (
-                    <li key={meal} className="mb-2">
-                      <span className="font-medium">{meal}:</span>
-                      <div className="pl-4">
-                        {Object.entries(details).map(([field, value]) => (
-                          <p key={field} className="text-sm">
-                            <span className="font-semibold">{field}:</span> {value}
-                          </p>
-                        ))}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-600">No data logged yet</p>
-              )}
-            </div>
-
-            {/* Nappy Log */}
-            <div className="space-y-1">
-              <h3 className="font-semibold text-lg">Nappy:</h3>
-              {childData.nappyData.status ? (
-                <p className="text-sm">
-                  <span className="font-semibold">Status:</span> {childData.nappyData.status},
-                  <span className="font-semibold"> Diaper Cream:</span> {childData.nappyData.diaperCream ? "Yes" : "No"}
-                </p>
-              ) : (
-                <p className="text-gray-600">No data logged yet</p>
-              )}
-            </div>
-
-            {/* Sunscreen Log */}
-            <div className="space-y-1">
-              <h3 className="font-semibold text-lg">Sunscreen Time:</h3>
-              <p className="text-sm">
-                {childData.sunscreenTime || "No data logged yet"}
-              </p>
-            </div>
-
-            {/* Sleep Log */}
-            <div className="space-y-1">
-              <h3 className="font-semibold text-lg">Sleep:</h3>
-              {childData.sleepData.start || childData.sleepData.end ? (
-                <p className="text-sm">
-                  <span className="font-semibold">Start:</span> {childData.sleepData.start || "N/A"},
-                  <span className="font-semibold"> End:</span> {childData.sleepData.end || "N/A"}
-                </p>
-              ) : (
-                <p className="text-gray-600">No data logged yet</p>
-              )}
-            </div>
-
-          </div>}
-        </Card>
-
+          </Card>
+          :
+          <div className="grid grid-cols-2 w-full gap-6">
+            <Link href={`?activity=attendance`}>
+              <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
+                <Clock className="w-12 h-12" /> Attendance
+              </Card>
+            </Link>
+            <Link href={`?activity=food`}>
+              <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
+                <UtensilsCrossed className="w-12 h-12" /> Food
+              </Card>
+            </Link>
+            <Link href={`?activity=sunscreen`}>
+              <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
+                <Sun className="w-12 h-12" /> Sunscreen
+              </Card>
+            </Link>
+            <Link href={`?activity=nappy`}>
+              <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
+                <Baby className="w-12 h-12" /> Nappy
+              </Card>
+            </Link>
+            <Link href={`?activity=sleep`}>
+              <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
+                <Moon className="w-12 h-12" /> Sleep
+              </Card>
+            </Link>
+          </div>
+        }
       </Card>
 
-      <div className="grid grid-cols-2 w-full gap-6">
-        <Link href={`?activity=attendance`}>
-          <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
-            <Clock className="w-12 h-12" /> Attendance
-          </Card>
-        </Link>
-        <Link href={`?activity=food`}>
-          <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
-            <UtensilsCrossed className="w-12 h-12" /> Food
-          </Card>
-        </Link>
-        <Link href={`?activity=sunscreen`}>
-          <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
-            <Sun className="w-12 h-12" /> Sunscreen
-          </Card>
-        </Link>
-        <Link href={`?activity=nappy`}>
-          <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
-            <Baby className="w-12 h-12" /> Nappy
-          </Card>
-        </Link>
-        <Link href={`?activity=sleep`}>
-          <Card className="w-full flex justify-center items-center flex-col aspect-square gap-4 text-xl font-bold bg-zinc-400/50">
-            <Moon className="w-12 h-12" /> Sleep
-          </Card>
-        </Link>
-      </div>
+      {selectModal
+        ?
+        <div
+          id="modal-overlay"
+          className="fixed inset-0 bg-black/50 flex justify-start items-start z-50 px-4 pt-24"
+          onClick={()=>setSelectModal(!selectModal)}
+        >
+          <div
+            className="bg-white rounded-lg p-6 max-w-lg w-full"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
+            <select
+              // ref={selectRef} // Attach ref to the select element
+              id="childSelect"
+              value={childName}
+              className="w-full px-4 py-2 border rounded-md"
+              onChange={(e) => handleSelect(e.target.value)} // Handle selection change if necessary
+            >
+              {children.map((child) => (
+                <option key={child} value={child}>
+                  {child}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        :
+        <></>
+      }
 
       {modalOpen && (
         <div
