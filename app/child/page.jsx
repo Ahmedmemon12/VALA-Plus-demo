@@ -2,13 +2,23 @@
 
 import { Card } from '@/components/ui/card';
 import { MessageCircleMore, Phone } from 'lucide-react';
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ChildInfoPage = () => {
+    const [childName, setChildName] = useState("Emma")
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    useEffect(() => {
+        const child = searchParams.get("child")
+        if (child) {
+            const formattedName = child.charAt(0).toUpperCase() + child.slice(1).toLowerCase()
+            setChildName(formattedName)
+        }
+    }, [searchParams])
     const childInfo = {
         profilePic: 'https://via.placeholder.com/120x120',
-        fullName: 'Emma Wilkins',
         fatherName: 'John Wilkins',
         motherName: 'Sarah Wilkins',
         fatherPhone: '555-1234',
@@ -49,7 +59,7 @@ const ChildInfoPage = () => {
                     <div className="flex items-center flex-col gap-3 space-x-4 mb-4">
                         <img src={childInfo.profilePic} alt="Profile" className="rounded-full w-20 h-20" />
                         <div>
-                            <h1 className="text-2xl font-bold">{childInfo.fullName}</h1>
+                            <h1 className="text-2xl font-bold">{childName}</h1>
                         </div>
                     </div>
                     <div className="space-y-2">

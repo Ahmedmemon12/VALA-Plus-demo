@@ -17,13 +17,13 @@ export default function SmBabyPage() {
   const [expandedModal, setExpandedModal] = useState(false)
   const [selectModal, setSelectModal] = useState(false)
   const [childName, setChildName] = useState("Emma")
-  // const [tab, setTab] = useState('activity')
   const [tab, setTab] = useState("activities");
   const children = ['Ava',
     'Liam',
     'Emma',
     'Noah',
     'Sophia',
+    'Jack',
     'Oliver',
     'Isabella',
     'Elijah',
@@ -38,7 +38,8 @@ export default function SmBabyPage() {
     'Avery',
     'Mason',
     'Ella',
-    'Henry']
+    'Henry'
+  ]
   const dates = [
     '2024-11-25',
     '2024-11-24',
@@ -46,13 +47,7 @@ export default function SmBabyPage() {
     '2024-11-22',
     '2024-11-21'
   ]
-  // const selectRef = useRef(null);
-  // const handleSwitchChildrenClick = () => {
-  //   if (selectRef.current) {
-  //     selectRef.current.focus(); // Bring focus to the select element
-  //     selectRef.current.click(); // Trigger a click to open it (only works in some browsers)
-  //   }
-  // };
+
   const [childData, setChildData] = useState({
     attendance: {},
     foodData: {},
@@ -102,6 +97,16 @@ export default function SmBabyPage() {
     } else {
       setModalOpen(false);
     }
+    const mode = searchParams.get("mode")
+    if (["activities", "logs"].includes(mode)) {
+      setTab(mode)
+    }
+    const childParam = searchParams.get("child"); // Rename to avoid conflict
+    if (children.map(c => c.toLowerCase()).includes(childParam)) {
+      const index = children.findIndex(c => c.toLowerCase() === childParam);
+      setChildName(children[index]);
+    }
+
   }, [searchParams]);
 
   const handleCloseModal = (e) => {
@@ -164,7 +169,7 @@ export default function SmBabyPage() {
   }
 
   return (
-    <div className="p-4 flex flex-col gap-3">
+    <div className="p-2 flex flex-col gap-3">
       {/* Title Card */}
       <Card className="p-2 text-lg flex flex-col gap-4">
         <div className="flex gap-4 items-center justify-between px-2">
@@ -178,13 +183,20 @@ export default function SmBabyPage() {
         <div className="flex gap-4 border-b-2 overflow-x-scroll w-[90vw]">
           <button
             className={`p-2 text-xs flex items-center gap-1 ${tab === "activities" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
-            onClick={() => setTab("activities")}
+            onClick={() => {
+              setTab("activities")
+              router.push("?mode=activities")
+            }}
           >
             <Activity /> Activities
           </button>
           <button
             className={`p-2 text-xs flex items-center gap-1 ${tab === "logs" ? "border-b-2 border-black font-bold" : "text-gray-500"}`}
-            onClick={() => setTab("logs")}
+            onClick={() => {
+              setTab("logs")
+              router.push("?mode=logs")
+            }
+            }
           >
             <NotepadText /> Logs
           </button>
@@ -302,7 +314,7 @@ export default function SmBabyPage() {
         <div
           id="modal-overlay"
           className="fixed inset-0 bg-black/50 flex justify-start items-start z-50 px-4 pt-24"
-          onClick={()=>setSelectModal(!selectModal)}
+          onClick={() => setSelectModal(!selectModal)}
         >
           <div
             className="bg-white rounded-lg p-6 max-w-lg w-full"

@@ -1,14 +1,25 @@
 "use client";
 
 import { Paperclip, Mic, ChevronLeft } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const ChatPage = () => {
+    const router = useRouter();
+    const [childName, setChildName] = useState("Emma")
+    const searchParams = useSearchParams();
+    useEffect(() => {
+        const child = searchParams.get("child")
+        if (child) {
+            const formattedName = child.charAt(0).toUpperCase() + child.slice(1).toLowerCase()
+            setChildName(formattedName)
+        }
+    }, [searchParams])
     const [messages, setMessages] = useState([
-        { sender: "AI", text: "Hello! How can I assist you today?", type: "incoming" },
+        { sender: `${childName}'s parent`, text: "Hello! How can I assist you today?", type: "incoming" },
         { sender: "You", text: "Can you provide me with today's report?", type: "outgoing" },
-        { sender: "AI", text: "Certainly! Here is a summary of today's activities.", type: "incoming" },
+        { sender: `${childName}'s parent`, text: "Certainly! Here is a summary of today's activities.", type: "incoming" },
     ]);
 
     const [newMessage, setNewMessage] = useState("");
@@ -35,7 +46,7 @@ const ChatPage = () => {
             {/* Header */}
             <div className="text-zinc-900 bg-slate-200 p-4 font-bold flex gap-4">
                 <Link href={"/chat/all"}><ChevronLeft /></Link>
-                Emma's parent
+                {`${childName}'s parent`}
             </div>
 
             {/* Chat Messages */}
