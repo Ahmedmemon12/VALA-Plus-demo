@@ -41,13 +41,12 @@ export function HeaderSidebar() {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-zinc-900 shadow-sm">
         <div className="flex h-16 items-center w-full gap-2 px-4">
-          <div className="flex items-center space-x-4">
-            <span className="text-md font-bold text-white">
-              <a href="#" onClick={toggleSidebar}>
-                {!isExpanded ? <Menu /> : <X />}
-              </a>
+          <Link href={"/"} className="flex gap-4 items-center">
+            <span className="max-w-[50px]">
+            <img src="https://cdn.shopify.com/s/files/1/0630/4143/7774/files/image_7_9614b325-4b76-4430-806d-c0dc0d955442.png?v=1732902336" width={"100%"} />
             </span>
-          </div>
+            <h3 className="text-white">Wattle Tree Childcare</h3>
+          </Link>
           <div className="ml-auto flex items-center space-x-4">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -66,6 +65,13 @@ export function HeaderSidebar() {
               <Mic className="h-4 w-4" />
               <span className="sr-only">Toggle voice input</span>
             </Button>
+          </div>
+          <div className="flex items-center space-x-4">
+            <span className="text-md font-bold text-white">
+              <a href="#" onClick={toggleSidebar}>
+                {!isExpanded ? <Menu /> : <X />}
+              </a>
+            </span>
           </div>
         </div>
       </header>

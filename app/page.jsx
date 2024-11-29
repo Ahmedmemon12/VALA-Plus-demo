@@ -61,8 +61,7 @@ export default function StaffDashboard() {
   const router = useRouter()
 
   return (
-    <div className="min-h-screen bg-white flex flex-col pb-16">
-      <div className='text-center px-10 py-6 font-extrabold text-xl'>Wattle Tree</div>
+    <div className="min-h-screen bg-white flex flex-col pb-16 pt-3">
       {/* Notifications Section */}
       <div className="space-y-2 px-4">
         {notifications.map((notification, index) => {
