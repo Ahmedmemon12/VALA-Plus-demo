@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 // import { Header } from "@/components/layout/header";
 // import { Sidebar } from "@/components/layout/sidebar";
-import {HeaderSidebar} from "@/components/layout/headerSidebar"
+import { HeaderSidebar } from "@/components/layout/headerSidebar";
 import { Footer } from "@/components/layout/footer";
 import { VoiceModal } from "@/components/layout/voiceModal";
 

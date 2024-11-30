@@ -1,6 +1,13 @@
 "use client";
 
-import { Home, School, MessageSquare, Settings, Mic, BellDot } from "lucide-react";
+import {
+  Home,
+  School,
+  MessageSquare,
+  Settings,
+  Mic,
+  BellDot,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -18,15 +25,11 @@ export function Footer() {
             <BellDot className="h-6 w-6" />
           </Button>
         </Link>
-        <Button
-          variant="default"
-          size="icon"
-          className="h-14 w-14 rounded-full bg-zinc-900 hover:bg-zinc-900/90 -mt-8 text-white"
-        >
-          <Link href="/">
+        <Link href="/">
+          <Button variant="ghost" size="icon">
             <Home className="h-6 w-6" />
-          </Link>
-        </Button>
+          </Button>
+        </Link>
         <Link href="/chat/all">
           <Button variant="ghost" size="icon">
             <MessageSquare className="h-6 w-6" />
