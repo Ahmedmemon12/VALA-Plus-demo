@@ -1,6 +1,7 @@
 import React from 'react'
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertOctagon, CheckCircle, Info } from 'lucide-react';
+import Link from 'next/link';
 
 export default function page() {
     const notifications = [
@@ -48,7 +49,10 @@ export default function page() {
         }
     ];
     return (
-        <div className='py-6'>
+        <div className=''>
+            <div className='flex justify-end p-4'>
+                <Link href={"/activities"}><button className='bg-zinc-900 text-white rounded-md px-4 py-2'>All activities</button></Link>
+            </div>
             <div className="space-y-2 px-4">
                 {notifications.map((notification, index) => {
                     const Icon = notification.icon;

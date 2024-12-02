@@ -63,12 +63,12 @@ export default function StaffDashboard() {
   const actions = [
     {
       title: "Attendance",
-      url: "/",
+      url: "/attendance",
       icon: <Users className='w-16 h-16' />
     },
     {
       title: "Meal Time",
-      url: "/",
+      url: "/meal",
       icon: <UtensilsCrossed className='w-16 h-16' />
     },
     {

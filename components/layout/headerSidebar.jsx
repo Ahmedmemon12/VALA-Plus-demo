@@ -37,23 +37,12 @@ export function HeaderSidebar() {
   const [currentOrg, setCurrentOrg] = useState(0)
   const [orgSelector, setOrgSelector] = useState(false)
 
-  const organization = [
-    {
-      name: "Wattle Tree Childcare",
-      shortName: "WT Childcare",
-      icon: "https://cdn.shopify.com/s/files/1/0630/4143/7774/files/image_7_9614b325-4b76-4430-806d-c0dc0d955442.png?v=1732902336"
-    },
-    {
-      name: "Sunshine Haven Childcare",
-      shortName: "SH Childcare",
-      icon: "https://cdn.shopify.com/s/files/1/0630/4143/7774/files/a329ef920798e7f13620d7045c478f2b-removebg-preview_18196782-4fc8-434d-93a7-a3585949371b.png?v=1732974767"
-    },
-    {
-      name: "Bloom & Play Childcare",
-      shortName: "BNP Childcare",
-      icon: "https://cdn.shopify.com/s/files/1/0630/4143/7774/files/ZEqa614wQoSAaRiNIocpKA-removebg-preview_1.png?v=1732974971"
-    },
-  ]
+  const organization = {
+    name: "Wattle Tree Childcare",
+    shortName: "WT Childcare",
+    icon: "https://cdn.shopify.com/s/files/1/0630/4143/7774/files/image_7_9614b325-4b76-4430-806d-c0dc0d955442.png?v=1732902336"
+  }
+  const groups = ["0-1 years", "1-2 years", "2-3 years", "3-4 years", "4-5 years"]
   const pathname = usePathname();
 
   const toggleSidebar = () => setIsExpanded((prev) => !prev);
@@ -65,9 +54,12 @@ export function HeaderSidebar() {
         <div className="flex h-16 items-center w-full gap-2 px-4">
           <span onClick={() => setOrgSidebar(!orgSidebar)} className="flex gap-2 items-center">
             <span className="max-w-[40px]">
-              <img className="grayscale" src={organization[currentOrg].icon} width={"100%"} />
+              <img className="grayscale" src={organization.icon} width={"100%"} />
             </span>
-            <h3 className="text-white">{organization[currentOrg].shortName}</h3>
+            <span className="flex flex-col ">
+              <h3 className="text-white">{organization.shortName}</h3>
+              <span className="text-white text-xs">{groups[currentOrg]}</span>
+            </span>
           </span>
           <div className="ml-auto flex items-center space-x-4">
             <div className="relative">
@@ -108,15 +100,15 @@ export function HeaderSidebar() {
         <ScrollArea className="h-full pb-6">
           <div className="h-full flex flex-col p-4">
             <div className="flex items-center justify-center flex-col py-8 gap-4 relative">
-              <span className="max-w-[100px] grayscale"><img className="invert" src={organization[currentOrg].icon} /></span>
-              <h1 className="text-lg text-center">{organization[currentOrg].name}</h1>
+              <span className="max-w-[100px] grayscale"><img className="invert" src={organization.icon} /></span>
+              <h1 className="text-lg text-center">{organization.name}</h1>
               <Button onClick={() => setOrgSelector(!orgSelector)} className={`aspect-square p-1 rounded-full absolute top-0 right-0 bg-white hover:bg-white ${orgSelector ? "invert" : "invert-0"}`}><ArrowUpDown /></Button>
             </div>
             <div className={`${orgSelector ? "h-full" : "h-0"} overflow-hidden transition-all duration-300`}>
-              <span className="text-xl font-bold mb-6 block">Select Organization</span>
+              <span className="text-xl font-bold mb-6 block">Select Group</span>
               <div className="flex flex-col gap-3">
                 {
-                  organization.map((org, ind) => <span key={ind} className={`flex gap-2 items-center justify-start p-2 rounded-md ${ind == currentOrg ? "bg-black text-white" : "bg-white text-black"}`} onClick={()=>setCurrentOrg(ind)}><span className={`w-10 ${ind == currentOrg ? "invert-0" : "invert"}`}><img className="grayscale" width={"100%"} src={org.icon} /></span><span className="text-sm">{org.name}</span></span>)
+                  groups.map((grp, ind) => <span key={ind} className={`flex gap-2 items-center justify-start p-2 rounded-md ${ind == currentOrg ? "bg-black text-white" : "bg-white text-black"}`} onClick={() => setCurrentOrg(ind)}><span className="text-sm">{grp}</span></span>)
                 }
               </div>
             </div>
