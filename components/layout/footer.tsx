@@ -5,8 +5,10 @@ import {
   School,
   MessageSquare,
   Settings,
+  BotMessageSquare,
   Mic,
   BellDot,
+  ShieldAlert,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -15,19 +17,19 @@ export function Footer() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 h-16 border-t bg-white">
       <div className="mx-auto flex h-full max-w-screen-xl items-center justify-around px-4">
-        <Link href="/rooms">
+        <Link href="/incident">
           <Button variant="ghost" size="icon">
-            <School className="h-6 w-6" />
+            <ShieldAlert className="h-6 w-6" />
           </Button>
         </Link>
-        <Link href="/notifications">
+        <Link href="/chat/ai">
           <Button variant="ghost" size="icon">
-            <BellDot className="h-6 w-6" />
+            <BotMessageSquare className="h-6 w-6" />
           </Button>
         </Link>
-        <Link href="/">
+        <Link href="?chat=true">
           <Button variant="ghost" size="icon">
-            <Home className="h-6 w-6" />
+            <Mic className="h-6 w-6" />
           </Button>
         </Link>
         <Link href="/chat/all">

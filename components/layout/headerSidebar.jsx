@@ -52,7 +52,7 @@ export function HeaderSidebar() {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-zinc-900 shadow-sm">
         <div className="flex h-16 items-center w-full gap-2 px-4">
-          <span onClick={() => setOrgSidebar(!orgSidebar)} className="flex gap-2 items-center">
+          {/* <span onClick={() => setOrgSidebar(!orgSidebar)} className="flex gap-2 items-center">
             <span className="max-w-[40px]">
               <img className="grayscale" src={organization.icon} width={"100%"} />
             </span>
@@ -60,7 +60,16 @@ export function HeaderSidebar() {
               <h3 className="text-white">{organization.shortName}</h3>
               <span className="text-white text-xs">{groups[currentOrg]}</span>
             </span>
-          </span>
+          </span> */}
+          <Link href={"/"} className="flex gap-2 items-center">
+            <span className="max-w-[40px]">
+              <img className="grayscale" src={organization.icon} width={"100%"} />
+            </span>
+            <span className="flex flex-col ">
+              <h3 className="text-white">{organization.shortName}</h3>
+              <span className="text-white text-xs">{groups[currentOrg]}</span>
+            </span>
+          </Link>
           <div className="ml-auto flex items-center space-x-4">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
