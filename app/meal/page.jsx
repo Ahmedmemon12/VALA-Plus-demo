@@ -1,12 +1,12 @@
 "use client";
 import { Card } from "@/components/ui/card";
-import { MoveLeft, Search, UtensilsCrossed, X } from "lucide-react";
+import { MoveLeft, Search, UtensilsCrossed, X, Pencil } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Page() {
     const [currentChild, setCurrentChild] = useState(null);
-    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [editingMeal, setEditingMeal] = useState(null);
     const [selectedAmount, setSelectedAmount] = useState(null);
     const [note, setNote] = useState("");
 
@@ -24,24 +24,29 @@ export default function Page() {
             "James Taylor",
         ].map((child) => ({
             name: child,
-            meals: [], // Each child has an array of meal logs
+            meals: {
+                breakfast: { amount: null, note: "", timestamp: null },
+                "morning tea": { amount: null, note: "", timestamp: null },
+                lunch: { amount: null, note: "", timestamp: null },
+                "afternoon tea": { amount: null, note: "", timestamp: null },
+            },
         }))
     );
 
-    const recordMeal = () => {
-        if (currentChild !== null && selectedMeal && selectedAmount) {
+    const updateMeal = () => {
+        if (currentChild !== null && editingMeal && selectedAmount) {
             const updatedChildren = [...children];
             const child = updatedChildren[currentChild];
-            child.meals.unshift({
-                type: selectedMeal,
+
+            child.meals[editingMeal] = {
                 amount: selectedAmount,
                 note: note || "No note provided.",
                 timestamp: new Date().toLocaleString(), // Record time
-            });
+            };
             setChildren(updatedChildren);
 
             // Reset states after submission
-            setSelectedMeal(null);
+            setEditingMeal(null);
             setSelectedAmount(null);
             setNote("");
         }
@@ -57,14 +62,14 @@ export default function Page() {
                 </Link>
                 <h1 className="text-black text-2xl">Meal</h1>
             </div>
-            <div className='w-full px-6 flex items-center rounded-lg mb-5'>
+            <div className="w-full px-6 flex items-center rounded-lg mb-5">
                 <input
-                    className='flex-grow border-2 min-h-[40px] border-black rounded-l-lg px-4'
-                    type='text'
-                    placeholder='Search child...'
+                    className="flex-grow border-2 min-h-[40px] border-black rounded-l-lg px-4"
+                    type="text"
+                    placeholder="Search child..."
                 />
-                <button className='bg-black flex items-center justify-center rounded-r-lg w-10 aspect-square'>
-                    <Search className='text-white' />
+                <button className="bg-black flex items-center justify-center rounded-r-lg w-10 aspect-square">
+                    <Search className="text-white" />
                 </button>
             </div>
             <div className="flex gap-1 px-6 items-stretch w-full justify-between">
@@ -89,11 +94,20 @@ export default function Page() {
                     className={`flex flex-col gap-2 duration-300 py-12 ${currentChild !== null ? "w-[70vw] px-4 opacity-100" : "w-0 opacity-0"
                         } overflow-hidden bg-[#f6f6f6] rounded-lg relative`}
                 >
+                    <Card >
+                        <div className="flex gap-1 items-center">
+                            <UtensilsCrossed className="w-4 aspect-square" />
+                            <h1 className="text-sm">
+                                Meal - <span className="font-bold">{currentChild !== null && children[currentChild].name}</span>
+                            </h1>
+                        </div>
+                    </Card>
+
                     <span
                         className="absolute top-3 right-3 cursor-pointer"
                         onClick={() => {
                             setCurrentChild(null);
-                            setSelectedMeal(null);
+                            setEditingMeal(null);
                             setSelectedAmount(null);
                             setNote("");
                         }}
@@ -101,57 +115,52 @@ export default function Page() {
                         <X />
                     </span>
 
-                    {/* Meal Recording */}
-                    <Card className="flex justify-between p-3">
-                        <div className="flex gap-1 items-center">
-                            <UtensilsCrossed className="w-4 aspect-square" />
-                            <h1 className="text-sm">
-                                Meal - {currentChild !== null && children[currentChild].name}
-                            </h1>
-                        </div>
-                        <button
-                            className="bg-zinc-900 text-white px-4 text-xs rounded-lg"
-                            onClick={() => setSelectedMeal("")}
-                        >
-                            Record Meal
-                        </button>
-                    </Card>
-
-                    {/* Meal Type Buttons */}
-                    {selectedMeal === "" && (
-                        <div className="grid grid-cols-2 gap-4 mt-4">
-                            {["Breakfast", "Morning Tea", "Lunch", "Afternoon Tea"].map(
-                                (meal) => (
-                                    <button
-                                        key={meal}
-                                        className="bg-zinc-200 text-black py-1 px-4 rounded-lg"
-                                        onClick={() => setSelectedMeal(meal.toLowerCase())}
-                                    >
-                                        {meal}
-                                    </button>
-                                )
-                            )}
-                        </div>
-                    )}
-
-                    {/* Amount Buttons */}
-                    {selectedMeal && !selectedAmount && (
-                        <div className="grid grid-cols-2 gap-4 mt-4">
-                            {["All", "Most", "Some", "None"].map((amount) => (
-                                <button
-                                    key={amount}
-                                    className="bg-zinc-300 text-black py-1 px-4 rounded-lg"
-                                    onClick={() => setSelectedAmount(amount.toLowerCase())}
-                                >
-                                    {amount}
-                                </button>
+                    {/* Meal Cards */}
+                    {currentChild !== null && (
+                        <div className="grid grid-cols-2 gap-4">
+                            {Object.keys(children[currentChild].meals).map((mealType) => (
+                                <Card key={mealType} className="p-3 relative">
+                                    <div className="flex justify-between items-center">
+                                        <div>
+                                            <h3 className="text-lg capitalize">{mealType}</h3>
+                                            <p className="text-sm text-gray-500">
+                                                Amount:{" "}
+                                                {children[currentChild].meals[mealType].amount || "Not recorded"}
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Note:{" "}
+                                                {children[currentChild].meals[mealType].note || "No note provided."}
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Time:{" "}
+                                                {children[currentChild].meals[mealType].timestamp || "Not recorded"}
+                                            </p>
+                                        </div>
+                                        <Pencil
+                                            className="cursor-pointer"
+                                            onClick={() => setEditingMeal(mealType)}
+                                        />
+                                    </div>
+                                </Card>
                             ))}
                         </div>
                     )}
 
-                    {/* Note Input */}
-                    {selectedAmount && (
+                    {/* Update Meal Modal */}
+                    {editingMeal && (
                         <div className="flex flex-col gap-4 mt-4">
+                            <h2 className="text-lg font-bold">Update {editingMeal}</h2>
+                            <div className="grid grid-cols-2 gap-4">
+                                {["All", "Most", "Some", "None"].map((amount) => (
+                                    <button
+                                        key={amount}
+                                        className={`py-1 px-4 rounded-lg ${selectedAmount == amount.toLowerCase() ? 'bg-zinc-900 text-white' : 'bg-zinc-300'}`}
+                                        onClick={() => setSelectedAmount(amount.toLowerCase())}
+                                    >
+                                        {amount}
+                                    </button>
+                                ))}
+                            </div>
                             <textarea
                                 className="w-full h-20 p-3 border rounded-lg"
                                 placeholder="Add a note (optional)..."
@@ -160,35 +169,10 @@ export default function Page() {
                             />
                             <button
                                 className="bg-zinc-900 text-white py-1 px-4 rounded-lg"
-                                onClick={recordMeal}
+                                onClick={updateMeal}
                             >
                                 Submit
                             </button>
-                        </div>
-                    )}
-
-                    {/* Meal Logs */}
-                    {currentChild !== null && children[currentChild].meals.length > 0 && (
-                        <div className="mt-6">
-                            <h2 className="text-lg font-bold mb-2">Meal Logs</h2>
-                            <div className="flex flex-col gap-2">
-                                {children[currentChild].meals.map((meal, index) => (
-                                    <Card key={index} className="p-3">
-                                        <p className="text-sm">
-                                            <strong>Type:</strong> {meal.type}
-                                        </p>
-                                        <p className="text-sm">
-                                            <strong>Amount:</strong> {meal.amount}
-                                        </p>
-                                        <p className="text-sm">
-                                            <strong>Note:</strong> {meal.note}
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                            <strong>Time:</strong> {meal.timestamp}
-                                        </p>
-                                    </Card>
-                                ))}
-                            </div>
                         </div>
                     )}
                 </div>

@@ -81,17 +81,17 @@ export default function StaffDashboard() {
     },
     {
       title: "Play",
-      url: "/",
+      url: "/play",
       icon: <Smile className='w-16 h-16' />
     },
     {
       title: "Nappy",
-      url: "/",
+      url: "/nappy",
       icon: <Baby className='w-16 h-16' />
     },
     {
       title: "Moments",
-      url: "/",
+      url: "/moments",
       icon: <Camera className='w-16 h-16' />
     },
     {
