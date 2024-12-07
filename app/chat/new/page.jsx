@@ -8,12 +8,17 @@ import React, { useEffect, useState } from "react";
 const ChatPage = () => {
     const router = useRouter();
     const [childName, setChildName] = useState("Emma")
+    const [prevLink, setPrevLink] = useState("/chat/all")
     const searchParams = useSearchParams();
     useEffect(() => {
         const child = searchParams.get("child")
+        const backBtn = searchParams.get("prevLink")
         if (child) {
             const formattedName = child.charAt(0).toUpperCase() + child.slice(1).toLowerCase()
             setChildName(formattedName)
+        }
+        if (backBtn) {
+            setPrevLink(`/${backBtn}`)
         }
     }, [searchParams])
     const [messages, setMessages] = useState([
@@ -45,7 +50,7 @@ const ChatPage = () => {
         <div className="flex flex-col h-[80vh] bg-white text-zinc-900">
             {/* Header */}
             <div className="text-zinc-900 bg-slate-200 p-4 font-bold flex gap-4">
-                <Link href={"/chat/all"}><ChevronLeft /></Link>
+                <Link href={prevLink}><ChevronLeft /></Link>
                 {`${childName}'s parent`}
             </div>
 

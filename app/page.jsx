@@ -96,17 +96,17 @@ export default function StaffDashboard() {
     },
     {
       title: "Health",
-      url: "/",
+      url: "/health",
       icon: <HeartPulse className='w-16 h-16' />
     },
     {
       title: "Learning Club",
-      url: "/",
+      url: "/education",
       icon: <BookOpen className='w-16 h-16' />
     },
     {
       title: "Profile Chats",
-      url: "/",
+      url: "/chat-with-parents",
       icon: <MessageCircle className='w-16 h-16' />
     },
   ]
