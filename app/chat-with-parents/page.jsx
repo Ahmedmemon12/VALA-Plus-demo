@@ -17,7 +17,7 @@ export default function Page() {
                         <MoveLeft />
                     </button>
                 </Link>
-                <h1 className="text-black text-2xl">Learning Club</h1>
+                <h1 className="text-black text-2xl">Chat with Parents</h1>
             </div>
             <div className="w-full px-6 flex items-center rounded-lg mb-5">
                 <input
