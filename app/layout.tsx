@@ -29,13 +29,13 @@ export default function RootLayout({
           defaultTheme="light"
           enableSystem={false}
         >
-          <div className="min-h-screen bg-white">
+          <div className="min-h-screen bg-[#ccc]">
             {/* <Header /> */}
             <HeaderSidebar />
             <div className="flex">
               {/* <Sidebar /> */}
               <VoiceModal />
-              <main className="flex-1 pb-16">{children}</main>
+              <main className="flex-1 pb-16 mt-16">{children}</main>
             </div>
             <Footer />
           </div>

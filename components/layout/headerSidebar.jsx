@@ -21,6 +21,7 @@ import {
   NotepadText,
   Search,
   ArrowUpDown,
+  Bell,
 } from "lucide-react";
 import { useChatEnabled } from "@/hooks/useChatEnabled";
 
@@ -50,17 +51,8 @@ export function HeaderSidebar() {
   return (
     <div>
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-zinc-900 shadow-sm">
+      <header className="fixed top-0 z-50 w-full border-b bg-zinc-900 shadow-sm">
         <div className="flex h-16 items-center w-full gap-2 px-4">
-          {/* <span onClick={() => setOrgSidebar(!orgSidebar)} className="flex gap-2 items-center">
-            <span className="max-w-[40px]">
-              <img className="grayscale" src={organization.icon} width={"100%"} />
-            </span>
-            <span className="flex flex-col ">
-              <h3 className="text-white">{organization.shortName}</h3>
-              <span className="text-white text-xs">{groups[currentOrg]}</span>
-            </span>
-          </span> */}
           <Link href={"/"} className="flex gap-2 items-center">
             <span className="max-w-[40px]">
               <img className="grayscale" src={organization.icon} width={"100%"} />
