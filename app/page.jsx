@@ -14,7 +14,9 @@ import {
   AlertOctagon,
   Info,
   CheckCircle,
-  Bell
+  Bell,
+  ShieldAlert,
+  Headphones
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -28,47 +30,62 @@ export default function StaffDashboard() {
     {
       title: "Attendance",
       url: "/attendance",
-      icon: <Users className='w-20 h-20' />
+      icon: <Users className='w-14 h-14' />
     },
     {
       title: "Health",
       url: "/health",
-      icon: <HeartPulse className='w-20 h-20' />
+      icon: <HeartPulse className='w-14 h-14' />
     },
     {
       title: "Nappy",
       url: "/nappy",
-      icon: <Baby className='w-20 h-20' />
+      icon: <Baby className='w-14 h-14' />
     },
     {
       title: "Meal Time",
       url: "/meal",
-      icon: <UtensilsCrossed className='w-20 h-20' />
+      icon: <UtensilsCrossed className='w-14 h-14' />
     },
     {
       title: "Sleep",
       url: "/sleep",
-      icon: <Moon className='w-20 h-20' />
+      icon: <Moon className='w-14 h-14' />
     },
     {
       title: "Play",
       url: "/play",
-      icon: <Smile className='w-20 h-20' />
+      icon: <Smile className='w-14 h-14' />
     },
     {
       title: "Moments",
       url: "/moments",
-      icon: <Camera className='w-20 h-20' />
+      icon: <Camera className='w-14 h-14' />
     },
     {
       title: "Learning Club",
       url: "/education",
-      icon: <BookOpen className='w-20 h-20' />
+      icon: <BookOpen className='w-14 h-14' />
     },
     {
       title: "Profile Chats",
       url: "/chat-with-parents",
-      icon: <MessageCircle className='w-20 h-20' />
+      icon: <MessageCircle className='w-14 h-14' />
+    },
+    {
+      title: "Incidents",
+      url: "/incident",
+      icon: <ShieldAlert className='w-14 h-14' />
+    },
+    {
+      title: "Kids Club",
+      url: "/kids-club",
+      icon: <Users className='w-14 h-14' />
+    },
+    {
+      title: "VALA Assist",
+      url: "/chat-with-parents",
+      icon: <Headphones className='w-14 h-14' />
     },
   ]
   const notifications = [
@@ -125,13 +142,13 @@ export default function StaffDashboard() {
           <div className='flex justify-center'><Link href={"/notifications"}><button className='bg-zinc-900 text-white py-2 px-8 rounded-lg'>View all</button></Link></div>
         </div>
       </div>
-      <div className='grid lg:grid-cols-3 sm:grid-cols-2 gap-6 py-4 px-10'>
+      <div className='grid lg:grid-cols-4 sm:grid-cols-2 gap-6 py-4 px-10'>
         {
           actions.map((act, ind) => (
             <Link href={act.url} key={ind}>
               <Card className='flex flex-col gap-2 items-center justify-center p-6 aspect-square bg-[#f6f6f6] border-black rounded-3xl shadow-lg shadow-black/20'>
                 <span className="bg-black rounded-full text-white p-6 flex items-center justify-center">{act.icon}</span>
-                <span className='text-4xl text-center'>{act.title}</span>
+                <span className='text-2xl text-center'>{act.title}</span>
               </Card>
             </Link>
           ))
